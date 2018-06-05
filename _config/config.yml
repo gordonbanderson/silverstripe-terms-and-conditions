@@ -1,0 +1,11 @@
+---
+Name: silverstripe-terms-and-conditions
+---
+
+# Configure Admin Extensions:
+
+SilverStripe\Admin\LeftAndMain:
+  extra_requirements_css:
+    - "suilven/silverstripe-terms-and-conditions: admin/client/dist/styles/bundle.css"
+  extra_requirements_javascript:
+    - "suilven/silverstripe-terms-and-conditions: admin/client/dist/js/bundle.js"
