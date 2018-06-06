@@ -42,19 +42,8 @@ class FormTOCProtectionExtension extends Extension
         // @todo Enforce PDF
         $pdfURL = $toc->TermsAndConditionsDocument()->URL;
 
-        $html = '<div class="pdflink">View Terms and Conditions</div>';
         $field = CompositeField::create(
-            CheckboxSetField::create('ReadTOC', 'Select Option', [
-                'qux' => 'Search Qux'
-            ]),
-
-            CheckboxSetField::create('Category', 'Category', [
-                'Foo' => 'Foo',
-                'Bar' => 'Bar'
-            ]),
-
-            LiteralField::create('PDFCanvas', 'PDF HERE? ==> <canvas id="toc-pdf" data-url="' . $pdfURL . '"></canvas>'),
-
+            LiteralField::create('PDFCanvas', '<canvas style="border: solid red 1px;" id="toc-pdf" data-url="' . $pdfURL . '"></canvas>'),
             TextField::create('Signature', 'Signature')//('Please type your name here')
         );
 
