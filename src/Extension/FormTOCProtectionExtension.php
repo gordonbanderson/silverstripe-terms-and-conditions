@@ -39,12 +39,22 @@ class FormTOCProtectionExtension extends Extension
             user_error("A terms and condition  document could not be found for the name \'{$options['title']}\'");
         }
 
+        // @todo de-bootstrap.  Or extend and allow de-bootstrapping
+        $html = '<span  class="float-sm-right btn btn-primary"  id="next">Next</span><span  class="float-sm-right mr-2 btn btn-primary" ';
+        $html .= 'id="prev">Prev</span><span id="page_num" class="float-sm-left font-weight-bold"></span>';
+        $html .= '<span class="float-sm-left">/</span>';
+        $html .= '<span class="float-sm-left font-weight-bold" id="page_count">1</span><br/>';
+
         // @todo Enforce PDF
         $pdfURL = $toc->TermsAndConditionsDocument()->URL;
 
         $field = CompositeField::create(
-            LiteralField::create('PDFCanvas', '<canvas style="border: solid red 1px;" id="toc-pdf" data-url="' . $pdfURL . '"></canvas>'),
-            TextField::create('Signature', 'Signature')//('Please type your name here')
+            LiteralField::create('PDFCanvas', '<canvas style="width: 100%;" id="toc-pdf" data-url="' . $pdfURL . '">.... Loading, please wait ....</canvas>'),
+            LiteralField::create('PrevNext', $html),
+            TextField::create('Signature', 'Signature')
+                ->setRightTitle('(Please type your initials here after you have read the terms and conditions)'
+                )
+                //('Please type your name here')
         );
 
         // Add before field specified by insertBefore
