@@ -1,43 +1,44 @@
 $( document ).ready(function() {
   // URL of PDF document
-  var url = "http://mozilla.github.io/pdf.js/examples/learning/helloworld.pdf";
+  console.log('Container', $('#toc-pdf'));
+  var url = $('#toc-pdf').attr('data-url');
+
+  //var url = "//cdn.mozilla.net/pdfjs/helloworld.pdf";
 
   console.log('URL', url);
 
 // Asynchronous download PDF
-  pdfjsLib.getDocument(url)
-    .then(function(pdf) {
-      console.log('Rendering page 1');
-      return pdf.getPage(1);
-    })
-    .then(function(page) {
-      // Set scale (zoom) level
-      var scale = 1.5;
+// Asynchronous download of PDF
+  var loadingTask = pdfjsLib.getDocument(url);
+  loadingTask.promise.then(function (pdf) {
+    console.log('PDF loaded');
 
-      // Get viewport (dimensions)
+    // Fetch the first page
+    var pageNumber = 1;
+    pdf.getPage(pageNumber).then(function (page) {
+      console.log('Page loaded');
+
+      var scale = 1.5;
       var viewport = page.getViewport(scale);
 
-      // Get canvas#the-canvas
+      // Prepare canvas using PDF page dimensions
       var canvas = document.getElementById('toc-pdf');
-
-      // Fetch canvas' 2d context
       var context = canvas.getContext('2d');
-
-      // Set dimensions to Canvas
       canvas.height = viewport.height;
       canvas.width = viewport.width;
 
-      console.log('W', canvas.width);
-      console.log('H', canvas.height);
-
-      // Prepare object needed by render method
+      // Render PDF page into canvas context
       var renderContext = {
         canvasContext: context,
         viewport: viewport
       };
-
-      // Render PDF page
-      page.render(renderContext);
+      var renderTask = page.render(renderContext);
+      renderTask.then(function () {
+        console.log('Page rendered');
+      });
     });
-
+  }, function (reason) {
+    // PDF loading error
+    console.error(reason);
+  })
 });
