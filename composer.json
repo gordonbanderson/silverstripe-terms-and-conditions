@@ -28,7 +28,8 @@
     },
     "expose": [
       "admin/client/dist",
-      "client/dist"
+      "client/dist",
+      "javascript"
     ]
   },
   "minimum-stability": "dev",
