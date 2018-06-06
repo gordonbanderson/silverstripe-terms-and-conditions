@@ -3,12 +3,7 @@ $( document ).ready(function() {
   console.log('Container', $('#toc-pdf'));
   var url = $('#toc-pdf').attr('data-url');
 
-  //var url = "//cdn.mozilla.net/pdfjs/helloworld.pdf";
-
-  console.log('URL', url);
-
 // Asynchronous download PDF
-// Asynchronous download of PDF
   var loadingTask = pdfjsLib.getDocument(url);
   loadingTask.promise.then(function (pdf) {
     console.log('PDF loaded');
@@ -32,6 +27,7 @@ $( document ).ready(function() {
         canvasContext: context,
         viewport: viewport
       };
+
       var renderTask = page.render(renderContext);
       renderTask.then(function () {
         console.log('Page rendered');
