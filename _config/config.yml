@@ -1,11 +1,15 @@
 ---
 Name: silverstripe-terms-and-conditions
 ---
+#See https://docs.silverstripe.org/en/4/developer_guides/files/file_management/
+SilverStripe\Assets\File:
+  keep_archived_assets: true
 
-# Configure Admin Extensions:
 
-SilverStripe\Admin\LeftAndMain:
-  extra_requirements_css:
-    - "suilven/silverstripe-terms-and-conditions: admin/client/dist/styles/bundle.css"
-  extra_requirements_javascript:
-    - "suilven/silverstripe-terms-and-conditions: admin/client/dist/js/bundle.js"
+SilverStripe\Security\Member:
+  extensions:
+    - Suilven\TermsAndConditions\Model\MemberTOCSignatureExtension
+
+SilverStripe\Forms\Form:
+  extensions:
+    - Suilven\TermsAndConditions\Extension\FormTOCProtectionExtension
