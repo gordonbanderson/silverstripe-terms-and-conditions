@@ -7,6 +7,11 @@ $(document).ready(function () {
   $('#Signature').prop('disabled', true);
 
 
+  $('#Signature').closest("form").find('input[type=submit]').each(function() {
+    $(this).prop('disabled', true);
+    console.log('DISABLING', $(this));
+  });
+
   var pdfDoc = null,
     pageNum = 1,
     pageRendering = false,
