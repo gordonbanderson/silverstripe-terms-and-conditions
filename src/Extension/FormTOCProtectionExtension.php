@@ -19,7 +19,6 @@ use Suilven\TermsAndConditions\Model\TermsAndConditions;
 
 class FormTOCProtectionExtension extends Extension
 {
-
     /**
      * @param array $options associative array, MUST contain Title in order to map to the PDF document.   A user error will
      * be thrown if the referenced TOC cannot be found
@@ -66,6 +65,8 @@ class FormTOCProtectionExtension extends Extension
             // Add field to end if not added already
             $this->owner->Fields()->push($field);
         }
+        $this->owner->validator->addRequiredField('Signature');
+
     }
 
 }
