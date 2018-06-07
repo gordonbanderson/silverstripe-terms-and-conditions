@@ -6,6 +6,16 @@ $(document).ready(function () {
   // disable signature
   $('#Signature').prop('disabled', true);
 
+  $('#Signature').on('change', function() {
+    if ($('#Signature').val() !== '') {
+      $('#Signature').closest("form").find('input[type=submit]').each(function() {
+        $(this).prop('disabled', false);
+        console.log('ENABLING', $(this));
+      });
+    }
+
+  });
+
 
   $('#Signature').closest("form").find('input[type=submit]').each(function() {
     $(this).prop('disabled', true);
