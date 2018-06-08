@@ -11,6 +11,16 @@ class TOCSignature extends DataObject
 {
     private static $table_name = 'TOCSignature';
 
+    private static $summary_fields = [
+      'Title',
+      'Email',
+      'Address',
+      'Note',
+      'Signature',
+        'Member.Title',
+        'TermsAndConditionsFile.URL'
+    ];
+
     private static $db = [
         'Title' => 'Varchar(255)',
 
