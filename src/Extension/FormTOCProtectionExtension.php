@@ -8,6 +8,7 @@ use SilverStripe\Core\Extension;
 use SilverStripe\Forms\CheckboxSetField;
 use SilverStripe\Forms\CompositeField;
 use SilverStripe\Forms\HeaderField;
+use SilverStripe\Forms\HiddenField;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\NumericField;
 use SilverStripe\Forms\TextField;
@@ -35,7 +36,7 @@ class FormTOCProtectionExtension extends Extension
         // now that we have a title, try and find the terms and conditions document
         $toc = TermsAndConditions::get()->filter(['Title' => $options['Title']])->first();
         if (empty($toc)) {
-            user_error("A terms and condition  document could not be found for the name \'{$options['title']}\'");
+            user_error("A terms and condition  document could not be found for the name \'{$options['Title']}\'");
         }
 
         // @todo de-bootstrap.  Or extend and allow de-bootstrapping
@@ -65,6 +66,10 @@ class FormTOCProtectionExtension extends Extension
             // Add field to end if not added already
             $this->owner->Fields()->push($field);
         }
+
+        $this->owner->Fields()->add(HiddenField::create('TermsAndConditionsID', 'Terms and conditions id')
+            ->setValue($toc->ID));
+
         $this->owner->validator->addRequiredField('Signature');
 
     }
