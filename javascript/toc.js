@@ -6,7 +6,7 @@ $(document).ready(function () {
   // disable signature
   $('#Signature').prop('disabled', true);
 
-  $('#Signature').on('change', function() {
+  $('#Signature').on('keyup', function() {
     if ($('#Signature').val() !== '') {
       $('#Signature').closest("form").find('input[type=submit]').each(function() {
         $(this).prop('disabled', false);
@@ -19,7 +19,6 @@ $(document).ready(function () {
 
   $('#Signature').closest("form").find('input[type=submit]').each(function() {
     $(this).prop('disabled', true);
-    console.log('DISABLING', $(this));
   });
 
   var pdfDoc = null,
@@ -112,6 +111,11 @@ $(document).ready(function () {
    */
   pdfjsLib.getDocument(url).then(function (pdfDoc_) {
     pdfDoc = pdfDoc_;
+    if (pdfDoc.numPages === 1) {
+      $('#Signature').prop('disabled', false);
+      $('#prev').hide();
+      $('#next').hide();
+    }
     document.getElementById('page_count').textContent = pdfDoc.numPages;
     // Initial/first page rendering
     renderPage(pageNum);
